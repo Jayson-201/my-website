@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jayson Chen | 個人品牌首頁</title>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@400;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #22d3ee; /* Neon Cyan */
+            --bg-dark: #020617; /* Deepest Navy */
+            --surface: #0f172a; /* Card Color */
+            --text-p: #f8fafc;
+            --text-s: #94a3b8;
+            --accent-glow: rgba(34, 211, 238, 0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Urbanist', 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-p);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* 導覽列 */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(2, 6, 23, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex; justify-content: space-around;
+            padding: 1.2rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+            z-index: 1000;
+        }
+        nav a {
+            text-decoration: none; color: var(--text-p);
+            font-weight: 600; font-size: 0.9rem; letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+
+        /* 首頁 Hero - 科技感橫幅 */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.9)), url('banner.jpg');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            flex-direction: column; text-align: center; padding: 0 20px;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 0 30px var(--accent-glow);
+        }
+        .hero h1 { font-size: 4rem; letter-spacing: -1px; margin-bottom: 10px; }
+        .hero h1 span { color: var(--primary); }
+        .hero p { font-size: 1.2rem; color: var(--text-s); max-width: 600px; }
+
+        /* 內容區塊通用 */
+        .section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; }
+        .section-title { 
+            text-align: center; font-size: 2.5rem; margin-bottom: 50px; 
+            color: var(--primary); 
+        }
+
+        /* 個人資料 */
+        .profile-header { text-align: center; margin-top: -100px; }
+        .avatar {
+            width: 200px; height: 200px; border-radius: 50%;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 20px var(--accent-glow);
+            object-fit: cover; background-color: #1e293b;
+        }
+
+        /* 作品集 - 三欄式卡片 */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 電腦版三欄 */
+            gap: 30px;
+        }
+        .project-card {
+            background: var(--surface); border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            overflow: hidden; transition: 0.4s;
+        }
+        .project-card:hover { 
+            transform: translateY(-10px); 
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(34, 211, 238, 0.1);
+        }
+        .project-img { width: 100%; height: 220px; object-fit: cover; background: #1e293b; }
+        .project-info { padding: 25px; }
+        .project-info h3 { margin-bottom: 10px; color: var(--primary); }
+        .project-info p { font-size: 0.9rem; color: var(--text-s); }
+
+        /* 技能區 */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        .skill-item {
+            background: var(--surface); padding: 30px; border-radius: 12px;
+            text-align: center; border: 1px solid rgba(255,255,255,0.03);
+        }
+        .skill-item i { color: var(--primary); margin-bottom: 15px; }
+
+        /* 聯絡按鈕 */
+        .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .btn {
+            padding: 12px 30px; border-radius: 5px; text-decoration: none;
+            background: transparent; color: var(--primary); border: 1px solid var(--primary);
+            font-weight: 700; transition: 0.3s;
+        }
+        .btn:hover { background: var(--primary); color: var(--bg-dark); box-shadow: 0 0 20px var(--accent-glow); }
+
+        /* 頁尾 */
+        footer {
+            background: #000; color: var(--text-s);
+            text-align: center; padding: 60px 20px; border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* RWD 響應式調整 */
+        @media (max-width: 992px) {
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); } /* 平板二欄 */
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .portfolio-grid { grid-template-columns: 1fr; } /* 手機版一欄 */
+            nav { display: none; } /* 手機版隱藏桌面導覽，可後續加漢堡選單 */
+            .profile-header { margin-top: -80px; }
+            .avatar { width: 160px; height: 160px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#about">ABOUT</a>
+        <a href="#skills">SKILLS</a>
+        <a href="#portfolio">PROJECTS</a>
+        <a href="#contact">CONTACT</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Jayson <span>Chen</span></h1>
+        <p>雲端計算與數位品牌專家 | 致力於打造極致的數位體驗</p>
+    </header>
+
+    <main>
+        <section class="profile-header">
+            <img src="avatar.jpg" alt="Jayson Chen" class="avatar">
+            <h2 style="margin-top: 20px; font-size: 2rem;">陳傑琛 (Jayson)</h2>
+            <p style="color: var(--primary); letter-spacing: 2px;">FULL-STACK DEVELOPER</p>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">關於我</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--text-s);">
+                你好！我是 Jayson。我熱衷於研究雲端服務與 AI 應用。
+                目前正在鑽研如何透過自動化工具提升開發效率，並將美學融入每一次的程式碼撰寫中。
+            </p>
+        </section>
+
+        <section id="skills" class="section">
+            <h2 class="section-title">技術棧</h2>
+            <div class="skills-grid">
+                <div class="skill-item"><i class="fa-solid fa-cloud fa-3x"></i><p>Cloud Computing</p></div>
+                <div class="skill-item"><i class="fa-brands fa-github fa-3x"></i><p>Git Control</p></div>
+                <div class="skill-item"><i class="fa-solid fa-code fa-3x"></i><p>Frontend Dev</p></div>
+                <div class="skill-item"><i class="fa-solid fa-microchip fa-3x"></i><p>AI Integration</p></div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2 class="section-title">精選專案</h2>
+            <div class="portfolio-grid">
+                <div class="project-card">
+                    <img src="project-01.jpg" alt="Cloud Project" class="project-img">
+                    <div class="project-info">
+                        <h3>雲端部署自動化</h3>
+                        <p>透過 CI/CD 流程實現網站秒級上線與維護。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="project-02.jpg" alt="AI Project" class="project-img">
+                    <div class="project-info">
+                        <h3>AI 輔助開發工具</h3>
+                        <p>整合大型語言模型，加速網頁原型設計與產出。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="project-03.jpg" alt="Design Project" class="project-img">
+                    <div class="project-info">
+                        <h3>品牌識別網站</h3>
+                        <p>專為個人品牌打造的高質感、深色模式導覽頁。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section" style="text-align: center;">
+            <h2 class="section-title">連繫與追蹤</h2>
+            <div class="contact-links">
+                <a href="https://github.com/Jayson-201" target="_blank" class="btn">
+                    <i class="fa-brands fa-github"></i> GITHUB
+                </a>
+                <a href="https://www.linkedin.com/in/%E5%82%91%E7%8F%85-%E9%99%B3-0a5444412/" target="_blank" class="btn">
+                    <i class="fa-brands fa-linkedin"></i> LINKEDIN
+                </a>
+                <a href="mailto:jaysonchen1102@gmail.com" class="btn">
+                    <i class="fa-solid fa-envelope"></i> EMAIL
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Jayson Chen. Powered by GitHub & Cloudflare.</p>
+    </footer>
+
+</body>
+</html>
+
+### 💡 後續操作建議：
+1. **更新 GitHub**：請務必將此 `index.html` 提交 (Commit & Push) 到您的 `Jayson-201` 這個 Repository 中。
+2. **Cloudflare 自動更新**：一旦 GitHub 更新完成，Cloudflare Pages 會在 1 分鐘內自動重新部署。
+3. **手機測試**：屆時請打開 Cloudflare 提供給您的 `.pages.dev` 結尾的網址，您的手機就能完美呈現這個科技感十足的作品集了！
+
+您的升級版個人網站已經準備就緒！如有任何需要微調的地方，隨時跟我說。
